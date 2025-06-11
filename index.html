@@ -10,13 +10,13 @@
     <audio id="alarmSound" src="alarm.mp3" preload="auto" controls></audio>
     <div id="audioStatus">音声ファイルの準備中...</div>
     <div class="container">
-        <h1>ポモドーロタイマー</h1>
+        <h1>Pomodoro Timer</h1>
         <div class="timer-container">
             <div id="timer" class="timer">25:00</div>
             <div class="controls">
-                <button id="startBtn" class="btn">開始</button>
-                <button id="resetBtn" class="btn">リセット</button>
-                <button id="stopSoundBtn" class="btn" style="display: none;">音を止める</button>
+                <button id="startBtn" class="btn">Start</button>
+                <button id="resetBtn" class="btn">Reset</button>
+                <button id="stopSoundBtn" class="btn" style="display: none;">Mute Alarm</button>
             </div>
             <div class="preset-buttons">
                 <button class="preset-btn" data-work="25" data-break="5">25分/5分</button>
@@ -25,11 +25,11 @@
         </div>
         <div class="settings">
             <div class="setting-item">
-                <label for="workTime">作業時間 (分):</label>
+                <label for="workTime">Focus (min):</label>
                 <input type="number" id="workTime" value="25" min="1" max="60">
             </div>
             <div class="setting-item">
-                <label for="breakTime">休憩時間 (分):</label>
+                <label for="breakTime">Recharge (min):</label>
                 <input type="number" id="breakTime" value="5" min="1" max="30">
             </div>
         </div>
