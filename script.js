@@ -71,9 +71,17 @@ class PomodoroTimer {
         
         // タイマーカウントダウン終了時に音を鳴らす
         if (!this.soundPlaying) {
-            this.alarmSound.play();
-            this.soundPlaying = true;
-            this.stopSoundBtn.style.display = 'block';
+            try {
+                // 音声ファイルを直接読み込む
+                const audio = new Audio('https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg');
+                audio.play().catch(error => {
+                    console.error('音の再生に失敗しました:', error);
+                });
+                this.soundPlaying = true;
+                this.stopSoundBtn.style.display = 'block';
+            } catch (error) {
+                console.error('音の再生に失敗しました:', error);
+            }
         }
         
         if (this.currentMode === 'work') {
