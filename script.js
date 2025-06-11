@@ -3,6 +3,7 @@ class PomodoroTimer {
         this.isRunning = false;
         this.currentInterval = null;
         this.currentMode = 'work';
+        this.soundPlaying = false;
         this.initializeElements();
         this.initializeEventListeners();
     }
@@ -11,15 +12,30 @@ class PomodoroTimer {
         this.timerElement = document.getElementById('timer');
         this.startBtn = document.getElementById('startBtn');
         this.resetBtn = document.getElementById('resetBtn');
+        this.stopSoundBtn = document.getElementById('stopSoundBtn');
         this.workTimeInput = document.getElementById('workTime');
         this.breakTimeInput = document.getElementById('breakTime');
+        this.alarmSound = document.getElementById('alarmSound');
+        this.presetButtons = document.querySelectorAll('.preset-btn');
     }
 
     initializeEventListeners() {
         this.startBtn.addEventListener('click', () => this.handleStart());
         this.resetBtn.addEventListener('click', () => this.handleReset());
+        this.stopSoundBtn.addEventListener('click', () => this.stopSound());
         this.workTimeInput.addEventListener('change', () => this.updateTimer());
         this.breakTimeInput.addEventListener('change', () => this.updateTimer());
+        
+        // プリセットボタンのイベントリスナー
+        this.presetButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const workTime = parseInt(button.dataset.work);
+                const breakTime = parseInt(button.dataset.break);
+                this.workTimeInput.value = workTime;
+                this.breakTimeInput.value = breakTime;
+                this.updateTimer();
+            });
+        });
     }
 
     handleStart() {
@@ -44,6 +60,7 @@ class PomodoroTimer {
         this.isRunning = false;
         this.startBtn.textContent = '開始';
         clearInterval(this.currentInterval);
+        this.stopSound();
         this.updateTimer();
     }
 
@@ -51,6 +68,13 @@ class PomodoroTimer {
         this.isRunning = false;
         this.startBtn.textContent = '開始';
         clearInterval(this.currentInterval);
+        
+        // タイマーカウントダウン終了時に音を鳴らす
+        if (!this.soundPlaying) {
+            this.alarmSound.play();
+            this.soundPlaying = true;
+            this.stopSoundBtn.style.display = 'block';
+        }
         
         if (this.currentMode === 'work') {
             this.currentMode = 'break';
@@ -63,6 +87,15 @@ class PomodoroTimer {
         }
         
         this.updateDisplay();
+    }
+
+    stopSound() {
+        if (this.soundPlaying) {
+            this.alarmSound.pause();
+            this.alarmSound.currentTime = 0;
+            this.soundPlaying = false;
+            this.stopSoundBtn.style.display = 'none';
+        }
     }
 
     updateTimer() {

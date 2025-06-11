@@ -14,6 +14,11 @@
             <div class="controls">
                 <button id="startBtn" class="btn">開始</button>
                 <button id="resetBtn" class="btn">リセット</button>
+                <button id="stopSoundBtn" class="btn" style="display: none;">音を止める</button>
+            </div>
+            <div class="preset-buttons">
+                <button class="preset-btn" data-work="25" data-break="5">25分/5分</button>
+                <button class="preset-btn" data-work="25" data-break="10">25分/10分</button>
             </div>
         </div>
         <div class="settings">
@@ -28,5 +33,6 @@
         </div>
     </div>
     <script src="script.js"></script>
+    <audio id="alarmSound" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" preload="auto"></audio>
 </body>
 </html>
