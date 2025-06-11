@@ -4,8 +4,10 @@
     box-sizing: border-box;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', sans-serif;
     background-color: #1a1a1a;
     margin: 0;
     padding: 20px;
@@ -24,11 +26,13 @@ body {
     width: 100%;
     max-width: 400px;
     text-align: center;
+    font-weight: 400;
 }
 
 h1 {
     color: #ffffff;
     margin-bottom: 2rem;
+    font-weight: 600;
 }
 
 .timer-container {
@@ -78,6 +82,9 @@ h1 {
     background-color: #95a5a6;
     color: white;
     transition: background-color 0.3s;
+    background-color: #6d6d6d;
+    color: #ffffff;
+    font-weight: 600;
 }
 
 .preset-btn:hover {
@@ -93,7 +100,7 @@ h1 {
     transition: background-color 0.3s;
     background-color: #5d5d5d;
     color: #ffffff;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 #startBtn {
@@ -128,12 +135,13 @@ h1 {
     gap: 0.5rem;
     justify-content: center;
     align-items: center;
+    font-weight: 400;
 }
 
 .setting-item label {
     font-size: 1.1rem;
     color: #ffffff;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .setting-item input {
@@ -144,4 +152,5 @@ h1 {
     text-align: center;
     background-color: #5d5d5d;
     color: #ffffff;
+    font-weight: 600;
 }
