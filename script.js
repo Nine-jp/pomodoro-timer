@@ -110,10 +110,12 @@ class PomodoroTimer {
             this.currentMode = 'break';
             this.seconds = this.breakTimeInput.value * 60;
             this.timerElement.style.color = '#e74c3c';
+            this.timerElement.textContent = 'Break';
         } else {
             this.currentMode = 'work';
             this.seconds = this.workTimeInput.value * 60;
             this.timerElement.style.color = '#2c3e50';
+            this.timerElement.textContent = 'Focus';
         }
         
         this.updateDisplay();
