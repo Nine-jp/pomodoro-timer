@@ -44,8 +44,21 @@ class PomodoroTimer {
 
         // 音声ファイルの初期化
         this.audio = document.getElementById('alarmSound');
+        const audioStatus = document.getElementById('audioStatus');
+        
         if (this.audio) {
             this.audio.loop = true; // 音声をループ再生
+            
+            // 音声ファイルの読み込み状態を監視
+            this.audio.addEventListener('loadeddata', () => {
+                audioStatus.textContent = '音声ファイルの読み込み完了';
+                console.log('音声ファイルの読み込み完了');
+            });
+            
+            this.audio.addEventListener('error', (error) => {
+                audioStatus.textContent = '音声ファイルの読み込みエラー: ' + error.target.error.code;
+                console.error('音声ファイルの読み込みエラー:', error.target.error.code);
+            });
         }
     }
 
