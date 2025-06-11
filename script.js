@@ -66,7 +66,7 @@ class PomodoroTimer {
         if (this.isRunning) return;
         
         this.isRunning = true;
-        this.startBtn.textContent = '停止';
+        this.startBtn.textContent = 'Start';
         
         this.currentInterval = setInterval(() => {
             if (this.seconds > 0) {
