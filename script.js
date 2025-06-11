@@ -4,8 +4,7 @@ class PomodoroTimer {
         this.currentInterval = null;
         this.currentMode = 'work';
         this.soundPlaying = false;
-        this.audioContext = null;
-        this.audioBuffer = null;
+        this.audio = null;
         this.initializeElements();
         this.initializeEventListeners();
         this.seconds = this.workTimeInput.value * 60;
@@ -26,10 +25,7 @@ class PomodoroTimer {
     }
 
     initializeEventListeners() {
-        this.startBtn.addEventListener('click', async () => {
-            await this.initializeAudio();
-            this.handleStart();
-        });
+        this.startBtn.addEventListener('click', () => this.handleStart());
         this.resetBtn.addEventListener('click', () => this.handleReset());
         this.stopSoundBtn.addEventListener('click', () => this.stopSound());
         this.workTimeInput.addEventListener('change', () => this.updateTimer());
@@ -45,21 +41,11 @@ class PomodoroTimer {
                 this.updateTimer();
             });
         });
-    }
 
-    async initializeAudio() {
-        try {
-            // AudioContextの初期化
-            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            
-            // 音声ファイルをフェッチ
-            const response = await fetch('https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg');
-            const arrayBuffer = await response.arrayBuffer();
-            
-            // 音声データをデコード
-            this.audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
-        } catch (error) {
-            console.error('音声の初期化に失敗しました:', error);
+        // 音声ファイルの初期化
+        this.audio = document.getElementById('alarmSound');
+        if (this.audio) {
+            this.audio.loop = true; // 音声をループ再生
         }
     }
 
@@ -95,21 +81,11 @@ class PomodoroTimer {
         clearInterval(this.currentInterval);
         
         // タイマーカウントダウン終了時に音を鳴らす
-        if (!this.soundPlaying && this.audioBuffer) {
+        if (!this.soundPlaying && this.audio) {
             try {
-                // オーディオノードを作成
-                const source = this.audioContext.createBufferSource();
-                source.buffer = this.audioBuffer;
-                source.loop = true;
-                
-                // オーディオノードを接続
-                source.connect(this.audioContext.destination);
-                
-                // 音声を再生
-                source.start(0);
-                
-                // 再生状態を記録
-                this.currentSource = source;
+                this.audio.play().catch(error => {
+                    console.error('音の再生に失敗しました:', error);
+                });
                 this.soundPlaying = true;
                 this.stopSoundBtn.style.display = 'block';
             } catch (error) {
@@ -131,10 +107,10 @@ class PomodoroTimer {
     }
 
     stopSound() {
-        if (this.soundPlaying && this.currentSource) {
+        if (this.soundPlaying && this.audio) {
             try {
-                this.currentSource.stop(0);
-                this.currentSource.disconnect();
+                this.audio.pause();
+                this.audio.currentTime = 0;
                 this.soundPlaying = false;
                 this.stopSoundBtn.style.display = 'none';
             } catch (error) {
