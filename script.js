@@ -74,6 +74,7 @@ class PomodoroTimer {
             try {
                 // 音声ファイルを直接読み込む
                 const audio = new Audio('https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg');
+                audio.loop = true; // 音声をループ再生
                 audio.play().catch(error => {
                     console.error('音の再生に失敗しました:', error);
                 });
