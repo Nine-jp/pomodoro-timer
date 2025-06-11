@@ -90,7 +90,7 @@ class PomodoroTimer {
 
     handleModeChange() {
         this.isRunning = false;
-        this.startBtn.textContent = '開始';
+        this.startBtn.textContent = 'Stop';
         clearInterval(this.currentInterval);
         
         // タイマーカウントダウン終了時に音を鳴らす
