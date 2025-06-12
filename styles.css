@@ -77,10 +77,17 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
     background-color: #4d4d4d;
     padding: 1rem;
     border-radius: 8px;
+    width: 100%;
+}
+
+.mute-alarm-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
     width: 100%;
 }
 
